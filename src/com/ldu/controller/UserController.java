@@ -8,6 +8,7 @@ import com.ldu.util.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,15 +23,16 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    @Resource
+    @Autowired
     private UserService userService;
-    @Resource
+    @Autowired
     private GoodsService goodsService;
-    @Resource
+    @Autowired
     private ImageService imageService;
-    @Resource
+    @Autowired
     private PurseService purseService;
-
+    @Autowired
+    private FocusService focusService;
 
 
     @RequestMapping("/addUser")
@@ -120,6 +122,77 @@ public class UserController {
         mv.addObject("goodsAndImage", goodsAndImage);
         mv.setViewName("/user/goods");
         mv.addObject("myPurse", myPurse);
+        return mv;
+    }
+
+    @RequestMapping("/addFocus/{id}")
+    public String focus(HttpServletRequest request, @PathVariable("id")Integer goods_id){
+        User cur_user = (User) request.getSession().getAttribute("cur_user");
+        Integer cur_userId = cur_user.getId();
+        List<Focus> focusList = focusService.getFocusByUserId(cur_userId);
+
+        if (focusList.isEmpty()){
+            focusService.addFocusByUserIdAndId(goods_id, cur_userId);
+            return "redirect:/user/allFocus";
+        }
+
+        for (Focus myFocus: focusList) {
+            if (goods_id==myFocus.getGoodsId()){
+                return "redirect:/user/allFocus";
+            }
+        }
+        focusService.addFocusByUserIdAndId(goods_id, cur_userId);
+        return "redirect:/user/allFocus";
+    }
+
+    @RequestMapping("allFocus")
+    public ModelAndView allFocus(HttpServletRequest request){
+        //get user id
+        User cur_user = (User)request.getSession().getAttribute("cur_user");
+        Integer user_id = cur_user.getId();
+
+        List<Focus> focusList = focusService.getFocusByUserId(user_id);
+        List<GoodsExtend> goodsExtendList = new ArrayList<GoodsExtend>();
+
+        //get every focused items and take them out
+        for(int i=0;i<focusList.size();i++){
+            GoodsExtend goodsExtend = new GoodsExtend();
+            Focus focus = focusList.get(i);
+            Goods goods = goodsService.getGoodsByPrimaryKey(focus.getGoodsId());
+            List<Image> imageList = imageService.getImagesByGoodsPrimaryKey(focus.getGoodsId());
+            goodsExtend.setGoods(goods);
+            goodsExtend.setImages(imageList);
+            //put goodsExtend at i position
+            goodsExtendList.add(i, goodsExtend);
+
+        }
+
+        Purse purse = purseService.getPurseByUserId(user_id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/user/focus");
+        modelAndView.addObject("myPurse", purse);
+        modelAndView.addObject("goodsAndImage", goodsExtendList);
+        return modelAndView;
+    }
+
+    @RequestMapping("deleteFocus/{id}")
+    public String deleteFocus(HttpServletRequest request, @PathVariable("id")Integer goods_id){
+        //get user id
+        User cur_user = (User)request.getSession().getAttribute("cur_user");
+        Integer user_id = cur_user.getId();
+
+        focusService.deleteFocusByUserIdAndGoodsId(user_id, goods_id);
+        return "redirect:/user/allFocus";
+    }
+
+    @RequestMapping("basic")
+    public ModelAndView personalSetting(HttpServletRequest request){
+        User cur_user = (User) request.getSession().getAttribute("cur_user");
+        Integer userId = cur_user.getId();
+        Purse myPurse = purseService.getPurseByUserId(userId);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("myPurse", myPurse);
+        mv.setViewName("/user/basic");
         return mv;
     }
 }

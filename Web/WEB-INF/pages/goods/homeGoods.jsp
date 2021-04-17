@@ -118,8 +118,8 @@
         <nav class="white nav1">
             <div class="nav-wrapper">
                 <a href="<%=basePath%>goods/homeGoods" class="logo">
-                    <em class="em1">Liverpool</em>
-                    <em class="em2">Campus</em>
+                    <em class="em1">MySIS</em>
+                    <em class="em2"></em>
                     <%--<em class="em3"></em>--%>
                 </a>
                 <c:if test="${!empty cur_user}">

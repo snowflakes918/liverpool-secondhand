@@ -21,18 +21,27 @@ import javax.servlet.http.HttpSession;
 public class AdminController {
 
 	@Autowired
-	private AdminService am;
+	private AdminService adminService;
 
-	@RequestMapping("/index")
-	public ModelAndView index(HttpServletRequest request){
+	@RequestMapping("")
+	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("index");
-		String strPhone = request.getParameter("phone");
-		String strPassword = request.getParameter("password");
-
-		Admin admin = am.findAdmin(Long.parseLong(strPhone), strPassword);
-		modelAndView.addObject("admin", admin);
+		modelAndView.setViewName("/admin/login");
 		return modelAndView;
 	}
+
+	@RequestMapping("/index")
+	public String index(HttpServletRequest request, Admin admin){
+		Admin myAdmin = adminService.findAdmin(admin.getPhone(), admin.getPassword());
+		if (myAdmin != null){
+			request.getSession().setAttribute("admin", myAdmin);
+			return "/admin/index";
+		}else {
+			return "/admin/login";
+		}
+
+	}
+
+
 
 }

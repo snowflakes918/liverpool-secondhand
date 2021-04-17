@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ldu.pojo.*;
+import com.ldu.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,19 +27,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ldu.pojo.Catelog;
-import com.ldu.pojo.CommentExtend;
-import com.ldu.pojo.Comments;
-import com.ldu.pojo.Goods;
-import com.ldu.pojo.GoodsExtend;
-import com.ldu.pojo.Image;
-import com.ldu.pojo.Purse;
-import com.ldu.pojo.User;
-import com.ldu.service.CatelogService;
-import com.ldu.service.GoodsService;
-import com.ldu.service.ImageService;
-import com.ldu.service.PurseService;
-import com.ldu.service.UserService;
 import com.ldu.util.DateUtil;
 
 
@@ -54,6 +43,8 @@ public class GoodsController {
 	private UserService userService;
 	@Resource
 	private PurseService purseService;
+	@Resource
+	private FocusService focusService;
 
 
 	/**
@@ -377,11 +368,13 @@ public class GoodsController {
 	@RequestMapping(value = "/buyId/{id}")
 	public ModelAndView getGoodsdetailById(HttpServletRequest request, @PathVariable("id") Integer id)
 			throws Exception {
+		//get the whole goods info
 		Goods goods = goodsService.getGoodsByPrimaryKey(id);
 		GoodsExtend goodsExtend = new GoodsExtend();
 		List<Image> imageList = imageService.getImagesByGoodsPrimaryKey(id);
 		goodsExtend.setGoods(goods);
 		goodsExtend.setImages(imageList);
+
 		User cur_user = (User)request.getSession().getAttribute("cur_user");
 		Integer userId = cur_user.getId();
 		Purse myPurse=purseService.getPurseByUserId(userId);
@@ -389,6 +382,61 @@ public class GoodsController {
 		modelAndView.addObject("goodsExtend", goodsExtend);
 		modelAndView.addObject("myPurse",myPurse);
 		modelAndView.setViewName("/user/pay");
+		return modelAndView;
+	}
+
+	@RequestMapping("addFocus/{id}")
+	public String addFocus(HttpServletRequest request, @PathVariable("id") Integer goods_id){
+		//get user id
+		User user = (User)request.getSession().getAttribute("user");
+		Integer user_id = user.getId();
+
+		//get current focus list
+		List<Focus> focusList = focusService.getFocusByUserId(user_id);
+		if (focusList.isEmpty()){
+			focusService.addFocusByUserIdAndId(goods_id, user_id);
+			return "redirect:/user/allFocus";
+		}
+
+		for(Focus myFocus : focusList){
+			int id = myFocus.getGoodsId();
+			if (goods_id == id){
+				return "redirect:/user/allFocus";
+			}
+
+		}
+
+		focusService.addFocusByUserIdAndId(goods_id, user_id);
+		return "redirect:/user/allFocus";
+	}
+
+	@RequestMapping("allFocus")
+	public ModelAndView allFocus(HttpServletRequest request){
+		//get user id
+		User user = (User)request.getSession().getAttribute("user");
+		Integer user_id = user.getId();
+
+		List<Focus> focusList = focusService.getFocusByUserId(user_id);
+		List<GoodsExtend> goodsExtendList = new ArrayList<GoodsExtend>();
+
+		//get every focused items and take them out
+		for(int i=0;i<focusList.size();i++){
+			GoodsExtend goodsExtend = new GoodsExtend();
+			Focus focus = focusList.get(i);
+			Goods goods = goodsService.getGoodsByPrimaryKey(focus.getGoodsId());
+			List<Image> imageList = imageService.getImagesByGoodsPrimaryKey(focus.getGoodsId());
+			goodsExtend.setGoods(goods);
+			goodsExtend.setImages(imageList);
+			//put goodsExtend at i position
+			goodsExtendList.add(i, goodsExtend);
+
+		}
+
+		Purse purse = purseService.getPurseByUserId(user_id);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/user/focus");
+		modelAndView.addObject("myPurse", purse);
+		modelAndView.addObject("goodsAndImage", goodsExtendList);
 		return modelAndView;
 	}
 
