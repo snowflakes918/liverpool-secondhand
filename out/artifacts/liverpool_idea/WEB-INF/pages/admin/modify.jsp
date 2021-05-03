@@ -28,8 +28,8 @@
 		<!--breadcrumbs-->
 		<div id="content-header">
 			<div id="breadcrumb">
-				<a href="<%=basePath%>admin/indexs" title="主页" class="tip-bottom"><i class="icon-home"></i>主页</a>
-				<a title="修改密码" class="tip-bottom">修改密码</a>
+				<a href="<%=basePath%>admin/indexs" title="Home Page" class="tip-bottom"><i class="icon-home"></i>Home</a>
+				<a title="Change Password" class="tip-bottom">Change password</a>
 			</div>
 		</div>
 		<!--End-breadcrumbs-->
@@ -39,15 +39,15 @@
 			
 				<input type="hidden" value='${admin.id }' id="id" name="id"/>
 				<div class="row pass">
-					<input type="password" id="password" name="password" placeholder="原密码" />
+					<input type="password" id="password" name="password" placeholder="Old Password" />
 				</div>
 				<div class="row pass">
-					<input type="password" id="password1" name="password1" placeholder="新密码" />
+					<input type="password" id="password1" name="password1" placeholder="New Password" />
 				</div>
 				<c:if test="${msg!=null}">
 				<span style="color:red;">${msg}</span><br>
 				</c:if>
-				<input type="submit" class="btn btn-info" value="立即提交" style="width:100px;"/>
+				<input type="submit" class="btn btn-info" value="submit" style="width:100px;"/>
 			</form>
 		</div>
 	</div>

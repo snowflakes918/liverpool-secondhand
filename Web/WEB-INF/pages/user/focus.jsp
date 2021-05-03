@@ -27,11 +27,9 @@
     <div id="user_area">
         <div id="home_header">
             <a href="<%=basePath%>goods/homeGoods">
-                <h1 class="logo"></h1>
+                <div class="logo">MYSIS</div>
             </a>
-            <a href="<%=basePath%>goods/homeGoodse">
-                <img src="<%=basePath%>img/home_header.png"  style="margin-left: 20px;" >
-            </a>
+            <div class="myheader">Second Hand Goods Information</div>
             <a href="<%=basePath%>user/home">
                 <div class="home"></div>
             </a>
@@ -43,22 +41,14 @@
         <div id="user_nav">
             <div class="user_info">
                 <div class="head_img">
-                    <img src="<%=basePath%>img/photo.jpg">
-                </div>
-                <div class="big_headimg">
-                    <img src="">
+                    <img src="<%=basePath%>img/photo5.jpg">
                 </div>
                 <span class="name">${cur_user.username}</span><hr>
-
-                <a class="btn" style="width: 98%;background-color: rgb(79, 190, 246);color:rgba(255, 255, 255, 1);" href="<%=basePath%>user/myPurse">我的钱包：￥${myPurse.balance}</a>
-                <input type="hidden" value="${myPurse.recharge}" id="recharge"/>
-                <input type="hidden" value="${myPurse.withdrawals}" id="withdrawals"/>
-                <span class="btn" data-toggle="modal" data-target="#myModal" style="width: 98%;background-color: rgb(79, 190, 246); color:rgba(255, 255, 255, 1);margin-top:0.5cm;">我的信用积分：${cur_user.power}</span>
-
             </div>
+<%--            <div class="separateline-flex">mysis</div>--%>
             <div class="home_nav">
                 <ul>
-                    <a href="<%=basePath%>orders/myOrders">
+                    <a href="<%=basePath%>user/home">
                         <li class="notice">
                             <div></div>
                             <span>Order</span>
@@ -68,7 +58,7 @@
                     <a href="<%=basePath%>user/allFocus">
                         <li class="fri">
                             <div></div>
-                            <span>My Favourites</span>
+                            <span>Favourites</span>
                             <strong></strong>
                         </li>
                     </a>
@@ -133,12 +123,12 @@
                                         <span class="com" style="display: none;left: 396.733px;"></span>
                                     </div>
                                     <div class="interact">
-                                        <span class="fa fa-heart fa-lg"><a href="<%=basePath%>goods/goodsId/${items.goods.id}">前往购买</a></span>
-                                        <span class="fa fa-heart-o fa-lg"><a href="<%=basePath%>user/deleteFocus/${items.goods.id}">取消关注</a></span>
+                                        <span class="fa fa-heart fa-lg"><a href="<%=basePath%>goods/goodsId/${items.goods.id}">Detail</a></span>
+                                        <span class="fa fa-heart-o fa-lg"><a href="<%=basePath%>user/deleteFocus/${items.goods.id}">Delete</a></span>
                                     </div><br>
                                     <div class="like_detail">
                                         <div class="like_content">
-                                            <span>下架时间：${items.goods.endTime}</span>
+                                            <span>Off time：${items.goods.endTime}</span>
                                         </div>
                                     </div>
                                 </div>

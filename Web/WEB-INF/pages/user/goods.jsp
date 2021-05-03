@@ -28,11 +28,12 @@
     <div id="user_area">
         <div id="home_header">
             <a href="<%=basePath%>goods/homeGoods">
-                <h1 class="logo"></h1>
+                <div class="logo">MYSIS</div>
             </a>
-            <a href="<%=basePath%>user/home">
-                <img src="<%=basePath%>img/header2.jpg"  style="margin-left: 20px;" >
-            </a>
+            <%--                <a href="<%=basePath%>user/home">
+                                <img src="<%=basePath%>img/header2.jpg"  style="margin-left: 20px;width: 880px;height: 65px" >
+                            </a>--%>
+            <div class="myheader">Second Hand Goods Information</div>
             <a href="<%=basePath%>user/home">
                 <div class="home"></div>
             </a>
@@ -44,22 +45,18 @@
         <div id="user_nav">
             <div class="user_info">
                 <div class="head_img">
-                    <img src="<%=basePath%>img/photo.jpg">
+                    <img src="<%=basePath%>img/photo5.jpg">
                 </div>
                 <div class="big_headimg">
                     <img src="">
                 </div>
                 <span class="name">${cur_user.username}</span><hr>
-                <!--   <span class="school"></span> -->
-                <a class="btn" style="width: 98%;background-color: rgb(79, 190, 246);color:rgba(255, 255, 255, 1);" href="<%=basePath%>user/myPurse">My Purse：￥${myPurse.balance}</a>
-                <input type="hidden" value="${myPurse.recharge}" id="recharge"/>
-                <input type="hidden" value="${myPurse.withdrawals}" id="withdrawals"/>
-                <span class="btn" data-toggle="modal" data-target="#myModal" style="width: 98%;background-color: rgb(79, 190, 246); color:rgba(255, 255, 255, 1);margin-top:0.5cm;">My credit：${cur_user.power}</span>
+<%--                <span class="school"></span>--%>
 
             </div>
             <div class="home_nav">
                 <ul>
-                    <a href="<%=basePath%>orders/myOrders">
+                    <a href="<%=basePath%>user/home">
                         <li class="notice">
                             <div></div>
                             <span>Order</span>

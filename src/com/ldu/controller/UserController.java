@@ -17,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -33,6 +35,8 @@ public class UserController {
     private PurseService purseService;
     @Autowired
     private FocusService focusService;
+    @Autowired
+    private NoticeService noticeService;
 
 
     @RequestMapping("/addUser")
@@ -82,6 +86,22 @@ public class UserController {
             }
         }
         return "redirect:" + url;
+    }
+
+    @RequestMapping(value = "/home")
+    public ModelAndView home(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView();
+        User cur_user = (User) request.getSession().getAttribute("cur_user");
+        Integer userId = cur_user.getId();
+        int size=5;
+        Purse myPurse = purseService.getPurseByUserId(userId);
+        List<User> users=userService.getUserOrderByDate(size);
+        List<Notice> notice=noticeService.getNoticeList();
+        mv.addObject("notice", notice);
+        mv.addObject("myPurse", myPurse);
+        mv.addObject("users", users);
+        mv.setViewName("/user/home");
+        return mv;
     }
 
     @RequestMapping("/logout")
@@ -194,5 +214,29 @@ public class UserController {
         mv.addObject("myPurse", myPurse);
         mv.setViewName("/user/basic");
         return mv;
+    }
+
+    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+    @ResponseBody
+    public String insertSelective(HttpServletRequest request){
+        String context=request.getParameter("context");
+        User cur_user = (User) request.getSession().getAttribute("cur_user");
+        Notice notice=new Notice();
+        notice.setContext(context);
+        Date dt = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        notice.setCreateAt(sdf.format(dt));
+        notice.setStatus((byte) 0);
+        notice.setUser(cur_user);
+        if(context==null||context=="") {
+            return "{\"success\":false,\"msg\":\"发布失败，请输入内容!\"}";
+        }
+        try {
+            noticeService.insertSelective(notice);
+        } catch (Exception e) {
+            return "{\"success\":false,\"msg\":\"发布失败!\"}";
+        }
+        return "{\"success\":true,\"msg\":\"发布成功!\"}";
+
     }
 }

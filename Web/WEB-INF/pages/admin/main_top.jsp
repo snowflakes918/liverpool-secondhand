@@ -23,10 +23,10 @@
 	<div style="height:50px;background-color:#323232;">
 		<div style="float:left;background-color:#FFB53E;height:50px;width:220px;">
 			<a href="<%=basePath%>admin/indexs">
-				<p style="font-size:30px;text-align:center;">首页</p>
+				<p style="font-size:30px;text-align:center;">Home Page</p>
 			</a>
 		</div>
-		<h1 style="text-align:center;margin-top: 10px;margin-bottom: 0px;">校园二手市场管理系统</h1>
+		<h1 style="text-align:center;margin-top: 10px;margin-bottom: 0px;">MYSIS Admin System</h1>
 	</div>
 
 
@@ -40,18 +40,18 @@
 													  class="dropdown-toggle"> <i class="icon icon-user"></i>
 			<span class="text">${sessionScope.admin.userName }</span><b class="caret"></b> </a>
 			<ul class="dropdown-menu">
-				<li><a href="<%=basePath%>admin/info"><i class="icon-user"></i>个人信息</a></li>
+				<li><a href="<%=basePath%>admin/info"><i class="icon-user"></i>Personal Info</a></li>
 				<li class="divider"></li>
-				<li><a href="<%=basePath%>admin/modify"><i class="icon-check"></i>修改密码</a></li>
+				<li><a href="<%=basePath%>admin/modify"><i class="icon-check"></i>Change password</a></li>
 				<li class="divider"></li>
 				<li><a href="<%=basePath%>admin"
-					   onclick="return confirm('确认退出吗？');"><i class="icon-key"></i>退出</a>
+					   onclick="return confirm('Are you sure you want to exit？');"><i class="icon-key"></i>EXIT</a>
 				</li>
 			</ul>
 		</li>
 		<li class=""><a title="" href="<%=basePath%>admin"
-						onclick="return confirm('确认退出吗？');"><i
-				class="icon icon-share-alt"></i> <span class="text">退出</span> </a></li>
+						onclick="return confirm('Are you sure you want to exit？');"><i
+				class="icon icon-share-alt"></i> <span class="text">EXIT</span> </a></li>
 	</ul>
 </div>
 <!-- 实现左边动画 -->

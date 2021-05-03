@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div class="row-fluid">
-		<div id="footer" class="span12">2018 &copy;校园二手市场</div>
+		<div id="footer" class="span12">2021 &copy;MYSIS</div>
 	</div>
 </body>
 </html>

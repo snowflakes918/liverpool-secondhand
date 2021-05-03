@@ -47,23 +47,19 @@ ul {
 	height: 65px;
 	margin: 0 auto;
 	border: 1px solid #f8f8fa;
-	background-color: #fff;
+	box-shadow: grey;
+	background-color: #384d5f;
 	position: fixed;
 	z-index: 9900
 }
 
 #home_header .logo {
-	display: block;
-	width: 150px;
-	height: 65px;
-	line-height: 65px;
-	font-size: 30px;
-	float: left;
-	margin: -1px 0 0 26px;
-	letter-spacing: 10px;
-	background: url(../img/logo2.jpg) no-repeat;
-	background-size: cover;
-	margin-top: 2px
+	margin-left:60px;
+	margin-top: 10px;
+	font-size:28px;
+	font-family:"Microsoft YaHei","微软雅黑"!important;
+	font-weight:bolder;
+	color: white;
 }
 
 #home_header .home {
@@ -81,12 +77,21 @@ ul {
 		-131px 0 no-repeat
 }
 
+div .myheader{
+	margin-top: -40px;
+	text-align: center;
+	font-size:28px;
+	font-family:"Microsoft YaHei","微软雅黑"!important;
+	font-weight:bolder;
+	color: white;
+}
+
 #user_nav {
 	margin-top: 66px;
 	display: block;
 	width: 200px;
 	float: left;
-	background-color: #fff;
+	background-color: #f2eff1;
 	position: fixed;
 	border: 1px solid #f8f8fa;
 	z-index: 9900
@@ -272,14 +277,36 @@ ul {
 }
 
 #user_nav .home_nav {
-	width: 200px
+	width: 200px;
+	background-color: #f2eff1;
+}
+.separateline-flex {
+	display: flex;
+	align-items: center;
+	font-size: 0.4rem;
+	color: pink;
 }
 
+.separateline-flex::before,
+.separateline-flex::after {
+	content: '';
+	flex: 1;
+	height: 1px;
+	background: pink;
+}
+
+.separateline-flex::before {
+	margin-right: 0.25rem;
+}
+
+.separateline-flex::after {
+	margin-left: 0.25rem;
+}
 #user_nav .home_nav ul {
+
 	width: 200px;
 	height: 250px;
 	overflow: hidden;
-	margin-bottom: 10px
 }
 
 #user_nav .home_nav ul li {

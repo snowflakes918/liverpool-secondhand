@@ -72,7 +72,7 @@
     <nav class="white nav1">
         <div class="nav-wrapper">
             <a href="<%=basePath%>goods/homeGoods" class="logo">
-                <em class="em1">MySIS</em>
+                <em class="em1">MYSIS</em>
                 <em class="em2"></em>
                 <em class="em3"></em>
             </a>

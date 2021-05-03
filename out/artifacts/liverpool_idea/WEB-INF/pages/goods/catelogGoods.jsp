@@ -12,6 +12,7 @@
     <title>Campus second-hand</title>
     <link rel="icon" href="<%=basePath%>img/logo.jpg" type="image/x-icon"/>
     <link rel="stylesheet" href="<%=basePath%>css/index.css"/>
+    <link rel="stylesheet" href="<%=basePath%>font-awesome/css/font-awesome.css" />
     <script type="text/javascript" src="<%=basePath%>js/jquery.js"></script>
     <script type="text/javascript" src="<%=basePath%>js/materialize.min.js"></script>
     <script type="text/javascript" src="<%=basePath%>js/index.bundle.js"></script>
@@ -53,20 +54,18 @@
     <nav class="white nav1">
         <div class="nav-wrapper">
             <a href="<%=basePath%>goods/homeGoods" class="logo">
-                <em class="em1">MySIS</em>
+                <em class="em1">MYSIS</em>
                 <em class="em2"></em>
                 <em class="em3"></em>
             </a>
             <div class="nav-wrapper search-bar">
                 <form ng-submit="search()" class="ng-pristine ng-invalid ng-invalid-required" action="">
-                    <div class="input-field">
+                    <div class="d2">
                         <input id="search" name="str" value="<c:out value="${search}"></c:out>" placeholder="Search..."
                                style="height: 40px;"
                                class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"/>
-                        <input type="submit" class="btn" value="GO"></input>
-                        <label for="search" class="active">
-                            <i ng-click="search()" class="iconfont"></i>
-                        </label>
+<%--                        <input type="submit" class="btn" value="GO"/>--%>
+                        <button type="submit" value="GO"></button>
                     </div>
                 </form>
             </div>

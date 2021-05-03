@@ -33,7 +33,7 @@
                 <h1 class="logo"></h1>
             </a>
             <a href="<%=basePath%>user/home">
-                <img src="<%=basePath%>img/header2.jpg"  style="margin-left: 20px;" >
+                <img src="<%=basePath%>img/header2.jpg"  style="width: 880px;height: 65px" >
             </a>
             <a href="<%=basePath%>user/home">
                 <div class="home"></div>
@@ -46,7 +46,7 @@
         <div id="user_nav">
             <div class="user_info">
                 <div class="head_img">
-                    <img src="<%=basePath%>img/photo.jpg">
+                    <img src="<%=basePath%>img/photo5.jpg">
                 </div>
                 <div class="big_headimg">
                     <img src="">
@@ -61,7 +61,7 @@
             </div>
             <div class="home_nav">
                 <ul>
-                    <a href="<%=basePath%>orders/myOrders">
+                    <a href="<%=basePath%>user/home">
                         <li class="notice">
                             <div></div>
                             <span>Order</span>

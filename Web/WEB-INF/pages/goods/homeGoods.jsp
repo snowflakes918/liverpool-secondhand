@@ -12,6 +12,7 @@
     <title>Campus Second-hand</title>
     <link rel="icon" href="<%=basePath%>img/logo.jpg" type="image/x-icon"/>
     <link rel="stylesheet" href="<%=basePath%>css/index.css" />
+    <link rel="stylesheet" href="<%=basePath%>font-awesome/css/font-awesome.css" />
     <script type="text/javascript" src="<%=basePath%>js/jquery.js" ></script>
     <script type="text/javascript" src="<%=basePath%>js/materialize.min.js" ></script>
     <script type="text/javascript" src="<%=basePath%>js/index.bundle.js" ></script>
@@ -111,41 +112,41 @@
     </script>
 </head>
 
-<body ng-view="ng-view">
+<body ng-view="ng-view" style="background-color: white">
     <!--首页导航栏-->
 
     <div ng-controller="headerController" class="header stark-components navbar-fixed ng-scope">
         <nav class="white nav1">
             <div class="nav-wrapper">
                 <a href="<%=basePath%>goods/homeGoods" class="logo">
-                    <em class="em1">MySIS</em>
-                    <em class="em2"></em>
+<%--                    <em class="em1"></em>--%>
+                    <em class="em2">MYSIS</em>
+
                     <%--<em class="em3"></em>--%>
                 </a>
                 <c:if test="${!empty cur_user}">
                     <div class="nav-wrapper search-bar">
-                        <form class="ng-pristine ng-invalid ng-invalid-required" action="<%=basePath%>goods/search">
-                            <div class="input-field">
-                                <input id="search" name="str" placeholder="search..." style="height: 40px;"
+                        <form ng-submit="search()" class="ng-pristine ng-invalid ng-invalid-required" action="">
+                            <div class="d2">
+                                <input id="search" name="str" value="<c:out value="${search}"></c:out>" placeholder="Search..."
+                                       style="height: 40px;"
                                        class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"/>
-                                <input type="submit" class="btn"value="Go"/>
-                                <label for="search" class="active">
-                                    <i ng-click="search()" class="iconfont"></i>
-                                </label>
+                                    <%--                        <input type="submit" class="btn" value="GO"/>--%>
+                                <button type="submit" value="GO"></button>
                             </div>
                         </form>
                     </div>
                 </c:if>
                 <ul class="right">
                     <c:if test="${empty cur_user}">
-                        <li class="publish-btn">
+                        <li >
                             <button onclick="showLogin()" data-toggle="tooltip"
-                                    title="Sign First！" class="red lighten-1 waves-effect waves-light btn" 	>
+                                    title="Sign First！" class="red lighten-1 waves-effect waves-light btn" style="background-color: #e5b313">
                                 Upload</button>
                         </li>
                     </c:if>
                     <c:if test="${!empty cur_user}">
-                        <li class="publish-btn">
+                        <li >
                             <button data-position="bottom" class="red lighten-1 waves-effect waves-light btn">
                                 <a href="<%=basePath%>goods/publishGoods">Upload</a>
                             </button>
@@ -181,6 +182,16 @@
                         <li>
                             <a onclick="showSignup()">Register</a>
                         </li>
+                        <li class="changemore">
+                            <a class="changeMoreVertShow()">
+                                <i class="iconfont"></i>
+                            </a>
+                            <div class="more-vert">
+                                <ul class="dropdown-content">
+                                    <li><a href="<%=basePath%>admin" target="_blank">Admin login</a></li>
+                                </ul>
+                            </div>
+                        </li>
                     </c:if>
                 </ul>
             </div>
@@ -190,14 +201,14 @@
     <!--log in-->
     <div ng-controller="loginController" class="ng-scope">
         <div id="login-show" class="login stark-components">
-            <div class="publish-box z-depth-4">
+            <div class="publish-box z-depth-4" >
                 <div class="row">
                     <a onclick="showLogin()">
-                        <div class="col s12 title"></div>
+                        <div class="col s12 title"><h1>LOGIN</h1></div>
                     </a>
                     <form action="<%=basePath%>user/login" method="post" role="form">
                         <div class="input-field col s12">
-                            <input type="text" name="phone" id="login_phone" required="required" pattern="^1[0-9]{10}$" class="validate ng-pristine" />
+                            <input type="text" name="phone" id="login_phone" required="required" pattern="^1[0-9]{10}$"/>
                             <label>mobile&nbsp;&nbsp;<div id="login_errorPhone" style="color:red;display:inline;"></div></label>
                         </div>
                         <div class="input-field col s12">
@@ -225,31 +236,31 @@
     <div ng-controller="signupController" class="ng-scope">
         <div id="signup-show" class="signup stark-components">
             <div class="publish-box z-depth-4">
-                <div class="row">
+                <div class="row" >
                     <a onclick="showSignup()">
-                        <div class="col s12 title"></div>
+                        <div class="col s12 title"><h1>REGISTER</h1></div>
                     </a>
-                    <form action="<%=basePath%>user/addUser" method="post" role="form" id="signup_form">
-                        <div class="input-field col s12">
+                    <form action="<%=basePath%>user/addUser" method="post" role="form" id="signup_form" >
+                        <div class="input-field col s12" >
                             <input type="text" name="username" required="required" class="validate ng-pristine" />
                             <label>Nickname</label>
                         </div>
-                        <div class="input-field col s12">
+                        <div class="input-field col s12" >
                             <input type="text" name="phone" id="phone" required="required" pattern="^1[0-9]{10}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
                             <label>Mobile&nbsp;&nbsp;<div id="errorPhone" style="color:#ff0000;display:inline;"></div></label>
 
                         </div>
-                        <div class="input-field col s12">
+                        <div class="input-field col s12" >
                             <input type="password" name="password" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" />
                             <label>Password</label>
                         </div>
-                        <div ng-show="checkTelIsShow" class="col s12">
+                        <div ng-show="checkTelIsShow" class="col s12" >
                             <button type="submit" id="register" class="waves-effect waves-light btn verify-btn red lighten-1">
                                 <i class="iconfont left"></i>
                                 <em>Register</em>
                             </button>
                         </div>
-                        <div ng-show="checkTelIsShow" class="login-area col s12">
+                        <div ng-show="checkTelIsShow" class="login-area col s12" >
                             <em>Got one? Go to</em>
                             <a onclick="showLogin()">Sign in</a>
                         </div>
@@ -264,9 +275,11 @@
         <div id="changeName" class="change-name stark-components">
             <div class="publish-box z-depth-4">
                 <div class="row">
-                    <div class="col s12 title">
-                        <h1>Change username</h1>
-                    </div>
+                    <a onclick="ChangeName()">
+                        <div class="col s12 title">
+                            <h1>Change username</h1>
+                        </div>
+                    </a>
                     <form action="<%=basePath%>user/changeName" method="post"  role="form">
                         <div class="input-field col s12">
                             <input type="text" name="username" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
@@ -291,49 +304,49 @@
         <div ng-controller="sidebarController" class="sidebar stark-components ng-scope">
             <li ng-class="{true: 'active'}[isAll]">
                 <a href="<%=basePath%>goods/catelog" class="index">
-                    <img src="<%=basePath%>img/index.png">
+                    <img src="https://img.icons8.com/doodle/48/000000/new--v1.png%22"/>
                     <em>Recent</em>
                 </a>
             </li>
             <li ng-class="{true: 'active'}[isDigital]">
                 <a href="<%=basePath%>goods/catelog/1" class="digital">
-                    <img src="<%=basePath%>img/digital.png"  />
+                    <img src="https://img.icons8.com/plasticine/100/000000/smartphone-tablet.png"/>
                     <em>Digital</em>
                 </a>
             </li>
             <li ng-class="{true: 'active'}[isRide]">
                 <a href="<%=basePath%>goods/catelog/2" class="ride">
-                    <img src="<%=basePath%>img/ride.png"/>
+                    <img src="https://img.icons8.com/doodle/48/000000/wheel--v1.png"/>
                     <em>Trans</em>
                 </a>
             </li>
             <li ng-class="{true: 'active'}[isCommodity]">
                 <a href="<%=basePath%>goods/catelog/3" class="commodity">
-                    <img src="<%=basePath%>img/commodity.png"/>
+                    <img src="https://img.icons8.com/doodle/48/000000/apple-camera.png"/>
                     <em>Commodity</em>
                 </a>
             </li>
             <li ng-class="{true: 'active'}[isBook]">
                 <a href="<%=basePath%>goods/catelog/4" class="book">
-                    <img src="<%=basePath%>img/book.png"/>
+                    <img src="https://img.icons8.com/doodle/48/000000/address-book.png"/>
                     <em>Book</em>
                 </a>
             </li>
             <li ng-class="{true: 'active'}[isMakeup]">
                 <a href="<%=basePath%>goods/catelog/5" class="makeup">
-                    <img src="<%=basePath%>img/makeup.png"/>
+                    <img src="https://img.icons8.com/doodle/48/000000/lipstick.png"/>
                     <em>Makeup</em>
                 </a>
             </li>
             <li ng-class="{true: 'active'}[isSport]">
                 <a href="<%=basePath%>goods/catelog/6" class="sport">
-                    <img src="<%=basePath%>img/sport.png"/>
+                    <img src="https://img.icons8.com/doodle/48/000000/football2--v1.png"/>
                     <em>Sport</em>
                 </a>
             </li>
             <li ng-class="{true: 'active'}[isSmallthing]">
                 <a href="<%=basePath%>goods/catelog/7" class="smallthing">
-                    <img src="<%=basePath%>img/smallthing.png"/>
+                    <img src="https://img.icons8.com/dusk/64/000000/starred-ticket.png"/>
                     <em>Others</em>
                 </a>
             </li>
@@ -358,14 +371,18 @@
                             <%--<div class="blur">
                                 Blur Area
                             </div>--%>
-                            <ul class="bannerul">
-                                <p class="text1">Hello：</p>
-                                <p class="text2">Welcome to the campus secondary market.</p>
-                                <p class="text3">As the graduation season is approaching, do you have too much idle</p>
-                                <p class="text4"> time to share with alumni? In order to pursue better campus services, ——<span>Campus Second-hand sharing platform</p>
-                                <p class="text5">we have created a new campus platform. Campus secondary market There are more idle sharing and more free campus topic discussions</p>
-                                <p class="text6">Come and find out!</p>
-                            </ul>
+
+                                <img src="<%=basePath%>img/backinback.jpg" class="myimg" style="width: 40%;height: 50%;box-shadow: 10px 10px 10px rgba(0,0,0,.5);-moz-box-shadow: 10px 10px 10px rgba(0,0,0,.5);-webkit-box-shadow: 10px 10px 10px rgba(0,0,0,.5);"/>
+                                <ul class="bannerul" >
+                                    <p class="text1">Hello：</p>
+                                    <p class="text2">Welcome to</p>
+                                    <p class="text3">Second hand sharing platform</p>
+                                    <p class="text4">There are lots of stuff sharing</p>
+                                    <p class="text5">Come and find out!</p>
+                                    <%--<p class="text6">Come and find out!</p>--%>
+                                </ul>
+
+
 
                                 <!--   <div class="logoimg">
                                       <img src="../img/p_logo.jpg" />
